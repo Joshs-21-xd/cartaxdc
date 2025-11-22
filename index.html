@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+<title>Para ti 💗</title>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #f8d9e6;
+    font-family: "Arial", sans-serif;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* --- PANTALLA INICIAL --- */
+  .intro {
+    position: fixed;
+    inset: 0;
+    background: #f8d9e6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    text-align: center;
+    animation: fadeIn 1s forwards;
+  }
+
+  .intro h2 {
+    font-size: 1.5rem;
+    color: #d81b60;
+    max-width: 350px;
+    line-height: 1.5;
+  }
+
+  .intro button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: #d81b60;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .intro button:active {
+    transform: scale(0.95);
+  }
+
+  /* --- TITULO PRINCIPAL --- */
+  h1 {
+    margin-top: 25px;
+    color: #d81b60;
+    font-size: 1.6rem;
+    text-align: center;
+    font-weight: bold;
+    display: none;
+    padding: 0 15px;
+  }
+
+  /* --- CARTAS --- */
+  .cards-container {
+    margin-top: 20px;
+    display: none;
+    width: 95%;
+    max-width: 600px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+  }
+
+  .card {
+    background: white;
+    height: 140px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0px 5px 12px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    padding: 10px;
+    text-align: center;
+    transition: .2s;
+  }
+
+  .card:active {
+    transform: scale(0.95);
+    background-color: #ffd6ea;
+  }
+
+  /* --- MODAL --- */
+  .modal-container {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+  }
+
+  .modal {
+    background: white;
+    padding: 22px;
+    width: 92%;
+    max-width: 420px;
+    border-radius: 18px;
+    text-align: center;
+    animation: fade 0.3s;
+    font-size: 1.15rem;
+    line-height: 1.55;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .modal::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .modal::-webkit-scrollbar-thumb {
+    background: #d81b60;
+    border-radius: 12px;
+  }
+
+  button.close {
+    margin-top: 15px;
+    padding: 12px 25px;
+    background: #d81b60;
+    color: white;
+    border: none;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    width: 80%;
+  }
+
+  @keyframes fade {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- PANTALLA INICIAL -->
+<div class="intro" id="introScreen">
+  <h2>Hola mi amor ❤️<br><br>No sé cómo te fue hoy...<br><br>pero quizá esto te anime 💗</h2>
+  <button onclick="start()">Abrir</button>
+</div>
+
+<h1 id="mainTitle">Para darte ánimos con cada cartita, mi amor 💕</h1>
+
+<div class="cards-container" id="cartas"></div>
+
+<!-- MODAL -->
+<div class="modal-container" id="modal">
+  <div class="modal" id="modalText"></div>
+  <button class="close" onclick="cerrar()">Cerrar</button>
+</div>
+
+<script>
+const mensajes = [
+"Mi amor, sé que hay días donde parece imposible seguir, pero quiero que recuerdes esto: ya has superado cosas que antes te parecían gigantes. Cada paso que das, aunque sea pequeño, demuestra tu fuerza.",
+"Cuando sientas que no avanzas, recuerda que crecer lleva tiempo. No tienes que ser perfecta, solo constante. Yo estoy orgulloso de ti más de lo que imaginas.",
+"Si hoy tu mente se cansa o tu corazón se siente pesado, no está mal. Descansa, respira, vuelve a intentarlo cuando estés lista. Estoy contigo.",
+"No tienes que hacerlo todo sola. Yo estoy aquí para ti, para abrazarte cuando el mundo se sienta frío, para recordarte lo increíble que eres.",
+"Te admiro. No solo por tus logros, sino por tu corazón, tu esfuerzo, tu valentía silenciosa y tu forma de seguir adelante incluso cuando duele.",
+"A veces olvidamos lo lejos que hemos llegado porque miramos solo lo que falta. Pero mírate, mi amor. Estás creciendo, avanzando, transformándote.",
+"En tus días buenos brillas, pero en tus días difíciles… ahí es cuando eres más fuerte, porque sigues luchando. Eso es hermoso.",
+"No tengas miedo de no saberlo todo aún. La vida no se trata de correr: se trata de aprender, sentir y avanzar a tu ritmo.",
+"Te prometo algo: nunca estarás sola. Pase lo que pase, yo estoy aquí. Para escucharte, apoyarte y recordarte que vales más de lo que imaginas.",
+"Eres importante. Tu existencia cambia cosas, toca vidas, ilumina días. No lo olvides.",
+"Si nadie te lo dijo hoy: estoy orgulloso de ti. De todo lo que haces, de todo lo que eres y de todo lo que estás creciendo.",
+"Gracias por existir, por intentar, por sentir y por seguir. Yo te elijo, te admiro y te acompaño. Siempre."
+];
+
+const contenedor = document.getElementById("cartas");
+const modal = document.getElementById("modal");
+const modalText = document.getElementById("modalText");
+const title = document.getElementById("mainTitle");
+const intro = document.getElementById("introScreen");
+
+mensajes.forEach((m, i) => {
+  const div = document.createElement("div");
+  div.className = "card";
+  div.textContent = `💌 Carta ${i + 1}`;
+  div.onclick = () => abrir(i);
+  contenedor.appendChild(div);
+});
+
+function abrir(id) {
+  modalText.textContent = mensajes[id];
+  modal.style.display = "flex";
+}
+
+function cerrar() {
+  modal.style.display = "none";
+}
+
+function start() {
+  intro.style.display = "none";
+  title.style.display = "block";
+  contenedor.style.display = "grid";
+}
+</script>
+
+</body>
+</html>
